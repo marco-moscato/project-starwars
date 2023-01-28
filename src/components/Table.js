@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
+import Filter from './Filter';
 import './Table.css';
 
 export default function Table() {
   const [planets, setPlanets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [planetsKeys, setPlanetsKeys] = useState([]);
+  const [filter, setFilter] = useState('');
 
   // Falta retirar a chave residents do array;
   useEffect(
@@ -25,6 +27,7 @@ export default function Table() {
 
   return (
     <div>
+      <Filter />
       { loading && <h3>...LOADING...</h3> }
       <table className="planetsTable">
         <thead>
