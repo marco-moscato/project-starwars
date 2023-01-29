@@ -1,45 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
-import Filter from './Filter';
+import React, { useContext } from 'react';
+import { FetchContext } from '../context/FetchContext';
 import './Table.css';
 
 export default function Table() {
-  const [planets, setPlanets] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [planetsKeys, setPlanetsKeys] = useState([]);
-  const [filter, setFilter] = useState('');
-
-  // Falta retirar a chave residents do array;
-  useEffect(
-    () => {
-      setLoading(true);
-      fetchPlanetsAPI()
-        .then((response) => {
-        // const planetsArray = [...response];
-        // const filterPlanets = response.map((planet) => planet.residents);
-          setPlanets(response);
-          setPlanetsKeys(Object.keys(response[0]));
-          setLoading(false);
-        });
-    },
-    [],
-  );
+  const { loading, planets, planetsKeys } = useContext(FetchContext);
 
   return (
     <div>
-      <Filter />
-      { loading && <h3>...LOADING...</h3> }
+      { loading && <h3>CARREGANDO...</h3> }
       <table className="planetsTable">
         <thead>
           <tr>
             {/* Refatorar para evitar de usar o state */}
-            { planetsKeys.map((keys) => <th key={ keys }>{ keys }</th>)}
+            { planetsKeys.map((key) => <th key={ key }>{ key }</th>)}
           </tr>
         </thead>
         <tbody>
           {/* Refatorar esse map para reduzir a quantidade de linhas */}
           { planets.map((planet) => (
-            <tr key={ planet }>
+            <tr key={ planet.name }>
               <td>{ planet.name }</td>
               <td>{ planet.rotation_period }</td>
               <td>{planet.orbital_period }</td>

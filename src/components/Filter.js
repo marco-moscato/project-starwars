@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Filter() {
+  const [filterByName, setFilterByName] = useState('');
+
+  const handleChange = ({ target }) => {
+    setFilterByName(target.value);
+  };
+
   return (
     <div>
 
@@ -11,7 +17,7 @@ function Filter() {
           type="text"
           name="name-filter"
           id="name-filter"
-          onChange={ (e) => e.target.value }
+          onChange={ (e) => handleChange(e) }
         />
       </label>
 
