@@ -1,4 +1,5 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
 
 export const FetchContext = createContext();

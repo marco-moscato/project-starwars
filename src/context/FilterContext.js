@@ -1,13 +1,9 @@
 import { createContext } from 'react';
+import PropTypes from 'prop-types';
 
 export const FilterContext = createContext();
 
 function FilterProvider({ children }) {
-  //   const filterContextValue = useMemo(
-  //     () => ({ filterByName, }),
-  //     [filterByName],
-  //   );
-
   return (
     <FilterContext.Provider value="">
       <div>{ children }</div>
