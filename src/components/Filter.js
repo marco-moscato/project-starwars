@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function Filter() {
-  const [filterByName, setFilterByName] = useState('');
-
-  const handleChange = ({ target }) => {
-    setFilterByName(target.value);
-  };
-
   return (
     <div>
 

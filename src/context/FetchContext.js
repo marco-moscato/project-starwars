@@ -9,19 +9,19 @@ function FetchProvider({ children }) {
   const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
   const fetchContextvalue = useMemo(
-    () => ({ loading, planets, planetsKeys }),
-    [loading, planets, planetsKeys],
+    () => ({ loading, planets, planetsKeys, error }),
+    [loading, planets, planetsKeys, error],
   );
 
   useEffect(() => {
     setLoading(true);
     fetchPlanetsAPI()
       .then((response) => {
-        setPlanets(response);
+        setPlanets(response.filter((ele) => delete ele.residents));
         setPlanetsKeys(Object.keys(response[0]));
       })
       .catch(() => setError('Tivemos um problema com a requisição'));
-    setLoading(true);
+    setLoading(false);
   }, []);
 
   return (
@@ -30,5 +30,9 @@ function FetchProvider({ children }) {
     </FetchContext.Provider>
   );
 }
+
+FetchProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default FetchProvider;
