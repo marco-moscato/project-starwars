@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import { TableContext } from '../context/TableContext';
+import React from 'react';
 
 function Filter() {
-  const { nameFilter } = useContext(TableContext);
-
   return (
     <div>
 
@@ -14,8 +11,7 @@ function Filter() {
           type="text"
           name="name-filter"
           id="name-filter"
-          onChange={ nameFilter.onChange }
-          value={ nameFilter.value }
+          onChange={ (e) => e.target.value }
         />
       </label>
 

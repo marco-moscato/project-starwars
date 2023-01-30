@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { FetchContext } from '../context/FetchContext';
+import { TableContext } from '../context/TableContext';
 import './Table.css';
 
 export default function Table() {
-  const { loading, planets, planetsKeys } = useContext(FetchContext);
+  const { loading, planetsKeys, filterPlanets } = useContext(TableContext);
 
   return (
     <div>
@@ -17,7 +17,7 @@ export default function Table() {
         </thead>
         <tbody>
           {/* Refatorar esse map para reduzir a quantidade de linhas */}
-          { planets.map((planet) => (
+          { filterPlanets.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>
               <td>{ planet.rotation_period }</td>
@@ -28,13 +28,11 @@ export default function Table() {
               <td>{ planet.terrain }</td>
               <td>{ planet.surface_water }</td>
               <td>{ planet.population }</td>
-              <td>{ planet.residents }</td>
               <td>{ planet.films }</td>
               <td>{ planet.created }</td>
               <td>{ planet.edited }</td>
               <td>{ planet.url }</td>
-            </tr>
-          ))}
+            </tr>))}
         </tbody>
       </table>
     </div>
