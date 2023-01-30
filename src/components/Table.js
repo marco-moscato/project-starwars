@@ -28,7 +28,6 @@ export default function Table() {
               <td>{ planet.terrain }</td>
               <td>{ planet.surface_water }</td>
               <td>{ planet.population }</td>
-              <td>{ planet.residents }</td>
               <td>{ planet.films }</td>
               <td>{ planet.created }</td>
               <td>{ planet.edited }</td>
