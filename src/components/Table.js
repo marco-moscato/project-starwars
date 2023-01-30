@@ -3,7 +3,7 @@ import { TableContext } from '../context/TableContext';
 import './Table.css';
 
 export default function Table() {
-  const { loading, planets, planetsKeys } = useContext(TableContext);
+  const { loading, planetsKeys, filterPlanets } = useContext(TableContext);
 
   return (
     <div>
@@ -17,7 +17,7 @@ export default function Table() {
         </thead>
         <tbody>
           {/* Refatorar esse map para reduzir a quantidade de linhas */}
-          { planets.map((planet) => (
+          { filterPlanets.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>
               <td>{ planet.rotation_period }</td>

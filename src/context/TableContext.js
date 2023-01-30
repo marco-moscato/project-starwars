@@ -10,11 +10,21 @@ function TableProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
+  const [filterPlanets, setFilterPlanets] = useState([]);
   const nameFilter = useFormInput('');
   const tableContextvalue = useMemo(
-    () => ({ loading, planets, planetsKeys, error, nameFilter }),
-    [loading, planets, planetsKeys, error, nameFilter],
+    () => ({ loading, planets, planetsKeys, error, filterPlanets, nameFilter }),
+    [loading, planets, planetsKeys, error, filterPlanets, nameFilter],
   );
+
+  const filterByName = () => {
+    if (nameFilter === '') {
+      setFilterPlanets(planets);
+    } else {
+      const filter = planets.filter((planet) => planet.name.includes(nameFilter.value));
+      setFilterPlanets(filter);
+    }
+  };
 
   useEffect(
     () => {
@@ -26,9 +36,14 @@ function TableProvider({ children }) {
         })
         .catch(() => setError('Tivemos um problema com a requisição'));
       setLoading(false);
+      filterByName();
     },
     [],
   );
+
+  useEffect(() => {
+    filterByName();
+  }, [planets, filterPlanets]);
 
   return (
     <TableContext.Provider value={ tableContextvalue }>
