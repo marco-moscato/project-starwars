@@ -4,7 +4,6 @@ import './Table.css';
 
 export default function Table() {
   const { loading, planets, planetsKeys } = useContext(TableContext);
-  const nameFilter = useContext(TableContext);
 
   return (
     <div>
@@ -33,8 +32,7 @@ export default function Table() {
               <td>{ planet.created }</td>
               <td>{ planet.edited }</td>
               <td>{ planet.url }</td>
-            </tr>
-          ))}
+            </tr>))}
         </tbody>
       </table>
     </div>

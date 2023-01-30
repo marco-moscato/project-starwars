@@ -1,4 +1,4 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useInsertionEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
 import useFormInput from '../hooks/useFormInput';
@@ -10,33 +10,29 @@ function TableProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
-  const nameFilter = useFormInput('');
+  const nameInputValue = useFormInput('');
   const tableContextvalue = useMemo(
-    () => ({ loading, planets, planetsKeys, error, nameFilter }),
-    [loading, planets, planetsKeys, error, nameFilter],
+    () => ({ loading, planets, planetsKeys, error }),
+    [loading, planets, planetsKeys, error],
   );
-
-  const filterByName = (input) => {
-    const filter = planets.filter((planet) => {
-      if (input === '') {
-        return planet;
-      }
-      return planet.name.includes(input);
-    });
-    setPlanets(filter);
-  };
 
   useEffect(() => {
     setLoading(true);
-    fetchPlanetsAPI()
-      .then((response) => {
-        setPlanets(response.filter((ele) => delete ele.residents));
-        setPlanetsKeys(Object.keys(response[0]));
-        filterByName(nameFilter.value);
-      })
-      .catch(() => setError('Tivemos um problema com a requisição'));
-    setLoading(false);
+    if (nameInputValue === '') {
+      fetchPlanetsAPI()
+        .then((response) => {
+          setPlanets(response.filter((ele) => delete ele.residents));
+          setPlanetsKeys(Object.keys(response[0]));
+        })
+        .catch(() => setError('Tivemos um problema com a requisição'));
+    } else {
+      const filterPlanets = planets.filter((planet) => planet.name.includes(nameInputValue));
+      console.log(filterPlanets);
+      setPlanets(filterPlanets);
+      setLoading(false);
+    }
   }, []);
+
   return (
     <TableContext.Provider value={ tableContextvalue }>
       <div>{ children }</div>
