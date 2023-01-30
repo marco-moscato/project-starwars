@@ -1,6 +1,9 @@
 import React from 'react';
+import useFormInput from '../hooks/useFormInput';
 
 function Filter() {
+  const nameFilter = useFormInput('');
+
   return (
     <div>
 
@@ -11,7 +14,8 @@ function Filter() {
           type="text"
           name="name-filter"
           id="name-filter"
-          onChange={ (e) => handleChange(e) }
+          onChange={ nameFilter.onChange }
+          value={ nameFilter.value }
         />
       </label>
 
