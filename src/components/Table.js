@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { FetchContext } from '../context/FetchContext';
-import { FilterContext } from '../context/FilterContext';
+import { TableContext } from '../context/TableContext';
 import './Table.css';
 
 export default function Table() {
-  const { loading, planets, planetsKeys } = useContext(FetchContext);
-  const nameFilter = useContext(FilterContext);
+  const { loading, planets, planetsKeys } = useContext(TableContext);
+  const nameFilter = useContext(TableContext);
 
   return (
     <div>
