@@ -1,8 +1,8 @@
-import React from 'react';
-import useFormInput from '../hooks/useFormInput';
+import React, { useContext } from 'react';
+import { FilterContext } from '../context/FilterContext';
 
 function Filter() {
-  const nameFilter = useFormInput('');
+  const { nameFilter } = useContext(FilterContext);
 
   return (
     <div>

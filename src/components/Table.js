@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { FetchContext } from '../context/FetchContext';
+import { FilterContext } from '../context/FilterContext';
 import './Table.css';
 
 export default function Table() {
   const { loading, planets, planetsKeys } = useContext(FetchContext);
+  const nameFilter = useContext(FilterContext);
 
   return (
     <div>
