@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { nameFilter } = useContext(TableContext);
+  const { handleChange } = useContext(TableContext);
 
   return (
     <div>
@@ -14,8 +14,8 @@ function Filter() {
           type="text"
           name="name-filter"
           id="name-filter"
-          onChange={ nameFilter.onChange }
-          value={ nameFilter.value }
+          onChange={ (e) => handleChange(e.target.value) }
+          value={ handleChange.value }
         />
       </label>
 
@@ -25,7 +25,7 @@ function Filter() {
           data-testid="column-filter"
           name="column-filter"
           id="column-filter"
-          onChange={ (e) => console.log(e) }
+          onChange={ (e) => console.log(e.target.value) }
         >
           <option value="population">Population</option>
           <option value="orbital_period">Orbital Period</option>
