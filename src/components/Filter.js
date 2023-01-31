@@ -71,7 +71,7 @@ function Filter() {
           name="filterButton"
           id="filterButton"
           form="filter"
-          onClick={ (e) => handleSubmit(e) }
+          onClick={ (e) => handleSubmit(e.target) }
         >
           Filtrar
         </button>

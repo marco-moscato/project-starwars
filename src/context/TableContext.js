@@ -10,7 +10,11 @@ function TableProvider({ children }) {
   const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
-  const [formInput, setFormInput] = useState('');
+  const [formInput, setFormInput] = useState({
+    columnFilter: 'population',
+    comparisonFilter: 'maiorQue',
+    valueFilter: '',
+  });
   // const tableContextvalue = useMemo(
   //   () => ({
   //     loading, planets, planetsKeys, error, filterPlanets, nameFilter }),
@@ -38,11 +42,13 @@ function TableProvider({ children }) {
   };
 
   const handleFilter = (input) => {
-    console.log(input);
+    // console.log(input.name, input.value);
+    setFormInput({...formInput, {input.[name]: input.[value]}});
   };
 
   const handleSubmit = (input) => {
     console.log(input);
+    // setFormInput(input);
     // const filter = planets.filter((planet) => {
     //   planet.input
     // })
