@@ -2,65 +2,80 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleChange } = useContext(TableContext);
+  const { handleChange, handleSubmit, formInput,
+    handleFilter } = useContext(TableContext);
 
   return (
     <div>
 
-      <label htmlFor="name-filter">
-        Filter by name
-        <input
-          data-testid="name-filter"
-          type="text"
-          name="name-filter"
-          id="name-filter"
-          onChange={ (e) => handleChange(e.target.value) }
-          value={ handleChange.value }
-        />
-      </label>
+      <form id="filter">
 
-      <label htmlFor="column-filter">
-        Seletor
-        <select
-          data-testid="column-filter"
-          name="column-filter"
-          id="column-filter"
-          onChange={ (e) => console.log(e.target.value) }
+        <label htmlFor="name-filter">
+          Filter by name
+          <input
+            data-testid="name-filter"
+            type="text"
+            name="name-filter"
+            id="name-filter"
+            onChange={ (e) => handleChange(e.target.value) }
+            value={ handleChange.value }
+          />
+        </label>
+
+        <label htmlFor="columnFilter">
+          Colunas
+          <select
+            data-testid="columnFilter"
+            name="columnFilter"
+            id="columnFilter"
+            form="filter"
+            onChange={ (e) => handleFilter(e.target) }
+          >
+            <option value="population">Population</option>
+            <option value="orbitalPeriod">Orbital Period</option>
+            <option value="diameter">Diameter</option>
+            <option value="rotationPeriod">Rotation Period</option>
+            <option value="surfaceWater">Surface Water</option>
+          </select>
+        </label>
+
+        <label htmlFor="comparisonFilter">
+          Condição de valor
+          <select
+            data-testid="comparisonFilter"
+            name="comparisonFilter"
+            id="comparisonFilter"
+            form="filter"
+            onChange={ (e) => handleFilter(e.target) }
+          >
+            <option value="maiorQue">Maior que</option>
+            <option value="menorQue">Menor que</option>
+            <option value="igualA">Igual a</option>
+          </select>
+        </label>
+
+        <label htmlFor="valueFilter">
+          Valor
+          <input
+            data-testid="valueFilter"
+            type="number"
+            name="valueFilter"
+            id="valueFilter"
+            form="filter"
+            onChange={ (e) => handleFilter(e.target) }
+          />
+        </label>
+
+        <button
+          type="submit"
+          name="filterButton"
+          id="filterButton"
+          form="filter"
+          onClick={ (e) => handleSubmit(e) }
         >
-          <option value="population">Population</option>
-          <option value="orbital_period">Orbital Period</option>
-          <option value="diameter">Diameter</option>
-          <option value="rotation_period">Rotation Period</option>
-          <option value="surface_water">Surface Water</option>
-        </select>
-      </label>
-
-      <label htmlFor="comparison-filter">
-        Seletor
-        <select
-          data-testid="comparison-filter"
-          name="comparison-filter"
-          id="comparison-filter"
-        >
-          <option value="maior-que">Maior que</option>
-          <option value="menor-que">Menor que</option>
-          <option value="igual-a">Igual a</option>
-        </select>
-      </label>
-
-      <label htmlFor="value-filter">
-        Filter by value
-        <input
-          data-testid="value-filter"
-          type="number"
-          name="value-filter"
-          id="value-filter"
-        />
-      </label>
-
-      <button type="button" name="filter-button" id="filter-button" onClick={ () => {} }>
-        Filtrar
-      </button>
+          Filtrar
+        </button>
+      </form>
 
     </div>
   );
