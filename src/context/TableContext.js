@@ -17,15 +17,6 @@ function TableProvider({ children }) {
     [loading, planets, planetsKeys, error, filterPlanets, nameFilter],
   );
 
-  const filterByName = () => {
-    if (nameFilter === '') {
-      setFilterPlanets(planets);
-    } else {
-      const filter = planets.filter((planet) => planet.name.includes(nameFilter.value));
-      setFilterPlanets(filter);
-    }
-  };
-
   useEffect(
     () => {
       setLoading(true);
@@ -36,14 +27,18 @@ function TableProvider({ children }) {
         })
         .catch(() => setError('Tivemos um problema com a requisição'));
       setLoading(false);
-      filterByName();
     },
     [],
   );
 
-  useEffect(() => {
-    filterByName();
-  }, [planets, filterPlanets]);
+  const filterByName = () => {
+    if (nameFilter === '') {
+      setFilterPlanets(planets);
+    } else {
+      const filter = planets.filter((planet) => planet.name.includes(nameFilter.value));
+      setFilterPlanets(filter);
+    }
+  };
 
   return (
     <TableContext.Provider value={ tableContextvalue }>

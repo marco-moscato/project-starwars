@@ -25,6 +25,7 @@ function Filter() {
           data-testid="column-filter"
           name="column-filter"
           id="column-filter"
+          onChange={ (e) => console.log(e) }
         >
           <option value="population">Population</option>
           <option value="orbital_period">Orbital Period</option>
