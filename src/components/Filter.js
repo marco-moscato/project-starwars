@@ -2,13 +2,12 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleChange, handleSubmit, formInput,
-    handleFilter } = useContext(TableContext);
+  const { handleSubmit, handleFilterName, handleOtherFilters } = useContext(TableContext);
 
   return (
     <div>
 
-      <form id="filter">
+      <form action="" id="filterForm">
 
         <label htmlFor="name-filter">
           Filter by name
@@ -17,8 +16,8 @@ function Filter() {
             type="text"
             name="name-filter"
             id="name-filter"
-            onChange={ (e) => handleChange(e.target.value) }
-            value={ handleChange.value }
+            onChange={ (e) => handleFilterName(e.target.value) }
+
           />
         </label>
 
@@ -28,8 +27,7 @@ function Filter() {
             data-testid="columnFilter"
             name="columnFilter"
             id="columnFilter"
-            form="filter"
-            onChange={ (e) => handleFilter(e.target) }
+            onChange={ (e) => handleOtherFilters(e) }
           >
             <option value="population">Population</option>
             <option value="orbitalPeriod">Orbital Period</option>
@@ -45,12 +43,11 @@ function Filter() {
             data-testid="comparisonFilter"
             name="comparisonFilter"
             id="comparisonFilter"
-            form="filter"
-            onChange={ (e) => handleFilter(e.target) }
+            onChange={ (e) => handleOtherFilters(e) }
           >
-            <option value="maiorQue">Maior que</option>
-            <option value="menorQue">Menor que</option>
-            <option value="igualA">Igual a</option>
+            <option value=">">Maior que</option>
+            <option value="<">Menor que</option>
+            <option value="===">Igual a</option>
           </select>
         </label>
 
@@ -61,8 +58,7 @@ function Filter() {
             type="number"
             name="valueFilter"
             id="valueFilter"
-            form="filter"
-            onChange={ (e) => handleFilter(e.target) }
+            onChange={ (e) => handleOtherFilters(e) }
           />
         </label>
 
@@ -70,8 +66,7 @@ function Filter() {
           type="submit"
           name="filterButton"
           id="filterButton"
-          form="filter"
-          onClick={ (e) => handleSubmit(e.target) }
+          onClick={ (e) => handleSubmit(e) }
         >
           Filtrar
         </button>

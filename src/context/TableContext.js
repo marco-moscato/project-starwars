@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
+import useFormInput from '../hooks/useFormInput';
 
 export const TableContext = createContext();
 
@@ -10,16 +11,11 @@ function TableProvider({ children }) {
   const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
-  const [formInput, setFormInput] = useState({
+  const [otherFilters, setOtherFilters] = useState({
     columnFilter: 'population',
-    comparisonFilter: 'maiorQue',
+    comparisonFilter: '>',
     valueFilter: '',
   });
-  // const tableContextvalue = useMemo(
-  //   () => ({
-  //     loading, planets, planetsKeys, error, filterPlanets, nameFilter }),
-  //   [loading, planets, planetsKeys, error, filterPlanets, nameFilter],
-  // );
 
   useEffect(
     () => {
@@ -36,22 +32,24 @@ function TableProvider({ children }) {
     [],
   );
 
-  const handleChange = (input) => {
+  // controla o filtro por nome
+  const handleFilterName = (input) => {
     const filter = planets.filter((planet) => planet.name.includes(input));
     setFilterPlanets(filter);
   };
 
-  const handleFilter = (input) => {
-    // console.log(input.name, input.value);
-    setFormInput({...formInput, {input.[name]: input.[value]}});
+  // controla os outros filtros
+  const handleOtherFilters = (e) => {
+    setOtherFilters({ ...otherFilters, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (input) => {
-    console.log(input);
-    // setFormInput(input);
-    // const filter = planets.filter((planet) => {
-    //   planet.input
-    // })
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const filterOthers = planets.filter((planet) => {
+      planet[otherFilters.columnFilter];
+    });
+    // planet.population === '1000');
+    setFilterPlanets(filterOthers);
   };
 
   return (
@@ -62,10 +60,11 @@ function TableProvider({ children }) {
         planetsKeys,
         error,
         filterPlanets,
-        formInput,
-        handleChange,
-        handleFilter,
-        handleSubmit } }
+        useFormInput,
+        handleOtherFilters,
+        handleFilterName,
+        handleSubmit,
+      } }
     >
       <div>{ children }</div>
     </TableContext.Provider>

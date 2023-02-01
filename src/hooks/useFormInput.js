@@ -5,10 +5,10 @@ function useFormInput(initialValue) {
   const [value, setValue] = useState(initialValue);
 
   function handleChange(e) {
-    setValue(e.target.value);
+    setValue({ ...value, [e.target.name]: e.target.value });
   }
   return {
-    value,
+    name: value,
     onChange: handleChange,
   };
 }
