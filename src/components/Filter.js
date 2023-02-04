@@ -45,9 +45,9 @@ function Filter() {
             id="comparisonFilter"
             onChange={ (e) => handleOtherFilters(e) }
           >
-            <option value=">">Maior que</option>
-            <option value="<">Menor que</option>
-            <option value="===">Igual a</option>
+            <option value="maiorQue">Maior que</option>
+            <option value="manorQue">Menor que</option>
+            <option value="igualA">Igual a</option>
           </select>
         </label>
 
