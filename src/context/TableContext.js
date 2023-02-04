@@ -13,7 +13,7 @@ function TableProvider({ children }) {
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [otherFilters, setOtherFilters] = useState({
     columnFilter: 'population',
-    comparisonFilter: '>',
+    comparisonFilter: 'maiorQue',
     valueFilter: '',
   });
 
