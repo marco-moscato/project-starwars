@@ -8,7 +8,6 @@ export const TableContext = createContext();
 function TableProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [planets, setPlanets] = useState([]);
-  const [planetsKeys, setPlanetsKeys] = useState([]);
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [otherFilters, setOtherFilters] = useState({
@@ -24,7 +23,6 @@ function TableProvider({ children }) {
         .then((response) => {
           const filter = response.filter((ele) => delete ele.residents);
           setPlanets(filter);
-          setPlanetsKeys(Object.keys(response[0]));
           setFilterPlanets(filter);
         })
         .catch(() => setError('Tivemos um problema com a requisição'));
@@ -60,7 +58,6 @@ function TableProvider({ children }) {
       }
       return filter;
     });
-    // console.log(filter);
     setFilterPlanets(filter);
   };
 
@@ -69,7 +66,6 @@ function TableProvider({ children }) {
       value={ {
         loading,
         planets,
-        planetsKeys,
         error,
         filterPlanets,
         otherFilters,

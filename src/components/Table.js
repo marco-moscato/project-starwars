@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
-import Filter from './Filter';
 import './Table.css';
 
 export default function Table() {
-  const { loading, planetsKeys, filterPlanets } = useContext(TableContext);
+  const { loading, filterPlanets } = useContext(TableContext);
 
   return (
     <div>
@@ -12,8 +11,6 @@ export default function Table() {
       <table className="planetsTable">
         <thead>
           <tr>
-            {/* Refatorar para evitar de usar o state */}
-            {/* { planetsKeys.map((key) => <th key={ key }>{ key }</th>)} */}
             <th>Name</th>
             <th>Rotation Period</th>
             <th>Orbital Period</th>
@@ -30,7 +27,6 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {/* Refatorar esse map para reduzir a quantidade de linhas */}
           { filterPlanets.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>
@@ -52,7 +48,3 @@ export default function Table() {
     </div>
   );
 }
-
-// Table.propTypes = {
-//   keys
-// }
