@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleSubmit, handleFilterName, handleOtherFilters } = useContext(TableContext);
+  const { handleSubmit, handleFilterName, handleOtherFilters,
+    otherFilters } = useContext(TableContext);
 
   return (
     <div>
@@ -28,12 +29,13 @@ function Filter() {
             name="column"
             id="column"
             onChange={ (e) => handleOtherFilters(e) }
+            value={ otherFilters.column }
           >
-            <option value="population">Population</option>
-            <option value="orbital_period">Orbital Period</option>
-            <option value="diameter">Diameter</option>
-            <option value="rotation_period">Rotation Period</option>
-            <option value="surface_water">Surface Water</option>
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
           </select>
         </label>
 
@@ -44,21 +46,23 @@ function Filter() {
             name="comparison"
             id="comparison"
             onChange={ (e) => handleOtherFilters(e) }
+            value={ otherFilters.comparison }
           >
-            <option value="maior-que">Maior que</option>
-            <option value="menor-que">Menor que</option>
-            <option value="igual-a">Igual a</option>
+            <option value="maior que">maior que</option>
+            <option value="menor que">menor que</option>
+            <option value="igual a">igual a</option>
           </select>
         </label>
 
         <label htmlFor="value">
           Valor
           <input
-            data-testid="value"
+            data-testid="value-filter"
             type="number"
             name="value"
             id="value"
             onChange={ (e) => handleOtherFilters(e) }
+            value={ otherFilters.value }
           />
         </label>
 

@@ -13,8 +13,8 @@ function TableProvider({ children }) {
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [otherFilters, setOtherFilters] = useState({
     column: 'population',
-    comparison: 'maior-que',
-    value: '',
+    comparison: 'maior que',
+    value: 0,
   });
 
   useEffect(
@@ -47,16 +47,20 @@ function TableProvider({ children }) {
   // controla o botão filtrar
   const handleSubmit = (e) => {
     e.preventDefault();
-    const filter = planets.filter((planet) => {
-      if (otherFilters.comparison === 'maior-que') {
-        return planet[otherFilters.column] > Number(otherFilters.value);
+    const replyPlanets = [...planets];
+    const filter = replyPlanets.filter((planet) => {
+      if (otherFilters.comparison === 'maior que') {
+        return Number(planet[otherFilters.column]) > otherFilters.value;
       }
-      if (otherFilters.comparison === 'menor-que') {
-        return planet[otherFilters.column] < Number(otherFilters.value);
+      if (otherFilters.comparison === 'menor que') {
+        return Number(planet[otherFilters.column]) < otherFilters.value;
       }
-      return planet[otherFilters.column] === Number(otherFilters.value);
+      if (otherFilters.comparison === 'igual a') {
+        return planet[otherFilters.column] === otherFilters.value;
+      }
+      return filter;
     });
-    console.log(filter);
+    // console.log(filter);
     setFilterPlanets(filter);
   };
 

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
+import Filter from './Filter';
 import './Table.css';
 
 export default function Table() {
@@ -12,7 +13,20 @@ export default function Table() {
         <thead>
           <tr>
             {/* Refatorar para evitar de usar o state */}
-            { planetsKeys.map((key) => <th key={ key }>{ key }</th>)}
+            {/* { planetsKeys.map((key) => <th key={ key }>{ key }</th>)} */}
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface Water</th>
+            <th>Population</th>
+            <th>Films</th>
+            <th>Created</th>
+            <th>Edited</th>
+            <th>URL</th>
           </tr>
         </thead>
         <tbody>
