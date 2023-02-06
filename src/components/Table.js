@@ -3,7 +3,7 @@ import { TableContext } from '../context/TableContext';
 import './Table.css';
 
 export default function Table() {
-  const { loading, planetsKeys, filterPlanets } = useContext(TableContext);
+  const { loading, filterPlanets } = useContext(TableContext);
 
   return (
     <div>
@@ -11,12 +11,22 @@ export default function Table() {
       <table className="planetsTable">
         <thead>
           <tr>
-            {/* Refatorar para evitar de usar o state */}
-            { planetsKeys.map((key) => <th key={ key }>{ key }</th>)}
+            <th>Name</th>
+            <th>Rotation Period</th>
+            <th>Orbital Period</th>
+            <th>Diameter</th>
+            <th>Climate</th>
+            <th>Gravity</th>
+            <th>Terrain</th>
+            <th>Surface Water</th>
+            <th>Population</th>
+            <th>Films</th>
+            <th>Created</th>
+            <th>Edited</th>
+            <th>URL</th>
           </tr>
         </thead>
         <tbody>
-          {/* Refatorar esse map para reduzir a quantidade de linhas */}
           { filterPlanets.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>
@@ -38,7 +48,3 @@ export default function Table() {
     </div>
   );
 }
-
-// Table.propTypes = {
-//   keys
-// }
