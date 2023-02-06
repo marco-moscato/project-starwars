@@ -21,52 +21,53 @@ function Filter() {
           />
         </label>
 
-        <label htmlFor="columnFilter">
+        <label htmlFor="column">
           Colunas
           <select
-            data-testid="columnFilter"
-            name="columnFilter"
-            id="columnFilter"
+            data-testid="column-filter"
+            name="column"
+            id="column"
             onChange={ (e) => handleOtherFilters(e) }
           >
             <option value="population">Population</option>
-            <option value="orbitalPeriod">Orbital Period</option>
+            <option value="orbital_period">Orbital Period</option>
             <option value="diameter">Diameter</option>
-            <option value="rotationPeriod">Rotation Period</option>
-            <option value="surfaceWater">Surface Water</option>
+            <option value="rotation_period">Rotation Period</option>
+            <option value="surface_water">Surface Water</option>
           </select>
         </label>
 
-        <label htmlFor="comparisonFilter">
+        <label htmlFor="comparison">
           Condição de valor
           <select
-            data-testid="comparisonFilter"
-            name="comparisonFilter"
-            id="comparisonFilter"
+            data-testid="comparison-filter"
+            name="comparison"
+            id="comparison"
             onChange={ (e) => handleOtherFilters(e) }
           >
-            <option value="maiorQue">Maior que</option>
-            <option value="manorQue">Menor que</option>
-            <option value="igualA">Igual a</option>
+            <option value="maior-que">Maior que</option>
+            <option value="menor-que">Menor que</option>
+            <option value="igual-a">Igual a</option>
           </select>
         </label>
 
-        <label htmlFor="valueFilter">
+        <label htmlFor="value">
           Valor
           <input
-            data-testid="valueFilter"
+            data-testid="value"
             type="number"
-            name="valueFilter"
-            id="valueFilter"
+            name="value"
+            id="value"
             onChange={ (e) => handleOtherFilters(e) }
           />
         </label>
 
         <button
           type="submit"
-          name="filterButton"
-          id="filterButton"
+          name="button-filter"
+          id="button-filter"
           onClick={ (e) => handleSubmit(e) }
+          data-testid="button-filter"
         >
           Filtrar
         </button>
