@@ -12,9 +12,9 @@ function TableProvider({ children }) {
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [otherFilters, setOtherFilters] = useState({
-    columnFilter: 'population',
-    comparisonFilter: 'maiorQue',
-    valueFilter: '',
+    column: 'population',
+    comparison: 'maior-que',
+    value: '',
   });
 
   useEffect(
@@ -22,9 +22,10 @@ function TableProvider({ children }) {
       setLoading(true);
       fetchPlanetsAPI()
         .then((response) => {
-          setPlanets(response.filter((ele) => delete ele.residents));
+          const filter = response.filter((ele) => delete ele.residents);
+          setPlanets(filter);
           setPlanetsKeys(Object.keys(response[0]));
-          setFilterPlanets(response.filter((ele) => delete ele.residents));
+          setFilterPlanets(filter);
         })
         .catch(() => setError('Tivemos um problema com a requisição'));
       setLoading(false);
@@ -43,13 +44,20 @@ function TableProvider({ children }) {
     setOtherFilters({ ...otherFilters, [e.target.name]: e.target.value });
   };
 
+  // controla o botão filtrar
   const handleSubmit = (e) => {
     e.preventDefault();
-    const filterOthers = planets.filter((planet) => {
-      planet[otherFilters.columnFilter];
+    const filter = planets.filter((planet) => {
+      if (otherFilters.comparison === 'maior-que') {
+        return planet[otherFilters.column] > Number(otherFilters.value);
+      }
+      if (otherFilters.comparison === 'menor-que') {
+        return planet[otherFilters.column] < Number(otherFilters.value);
+      }
+      return planet[otherFilters.column] === Number(otherFilters.value);
     });
-    // planet.population === '1000');
-    setFilterPlanets(filterOthers);
+    console.log(filter);
+    setFilterPlanets(filter);
   };
 
   return (
@@ -60,6 +68,7 @@ function TableProvider({ children }) {
         planetsKeys,
         error,
         filterPlanets,
+        otherFilters,
         useFormInput,
         handleOtherFilters,
         handleFilterName,
