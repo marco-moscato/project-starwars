@@ -10,6 +10,7 @@ function TableProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
   const [otherFilters, setOtherFilters] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -45,7 +46,7 @@ function TableProvider({ children }) {
   // controla o botão filtrar
   const handleSubmit = (e) => {
     e.preventDefault();
-    const replyPlanets = [...planets];
+    const replyPlanets = [...filterPlanets];
     const filter = replyPlanets.filter((planet) => {
       if (otherFilters.comparison === 'maior que') {
         return Number(planet[otherFilters.column]) > otherFilters.value;
@@ -59,6 +60,7 @@ function TableProvider({ children }) {
       return filter;
     });
     setFilterPlanets(filter);
+    setSelectedFilters([...selectedFilters, otherFilters]);
   };
 
   return (
@@ -69,6 +71,7 @@ function TableProvider({ children }) {
         error,
         filterPlanets,
         otherFilters,
+        selectedFilters,
         useFormInput,
         handleOtherFilters,
         handleFilterName,

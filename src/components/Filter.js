@@ -3,7 +3,7 @@ import { TableContext } from '../context/TableContext';
 
 function Filter() {
   const { handleSubmit, handleFilterName, handleOtherFilters,
-    otherFilters } = useContext(TableContext);
+    otherFilters, selectedFilters } = useContext(TableContext);
 
   return (
     <div>
@@ -76,6 +76,13 @@ function Filter() {
           Filtrar
         </button>
       </form>
+
+      { selectedFilters.map((filter) => (
+        <div key={ filter.column }>
+          <p>{ `${filter.column} ${filter.comparison} ${filter.value}` }</p>
+
+        </div>
+      ))}
 
     </div>
   );
