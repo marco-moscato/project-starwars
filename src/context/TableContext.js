@@ -13,7 +13,10 @@ function TableProvider({ children }) {
   const [selectedFilters, setSelectedFilters] = useState([]);
   // const options = (['population', 'orbital_period', 'diameter', 'rotation_period',
   //   'surface_water']);
-  // const [columnOptions, setColumnOptions] = useState(options);
+  const [columnOptions, setColumnOptions] = useState([
+    'population', 'orbital_period',
+    'diameter', 'rotation_period',
+    'surface_water']);
   const [otherFilters, setOtherFilters] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -35,10 +38,11 @@ function TableProvider({ children }) {
     [],
   );
 
-  // const handleColumnFilter = () => {
-  //   const filter = options.filter((option) => option !== otherFilters.column);
-  //   setColumnOptions(filter);
-  // };
+  // controla as opção disponíveis no column filter
+  const handleColumnFilter = () => {
+    const filter = columnOptions.filter((option) => option !== otherFilters.column);
+    setColumnOptions(filter);
+  };
 
   // controla o filtro por nome
   const handleFilterName = (input) => {
@@ -49,6 +53,7 @@ function TableProvider({ children }) {
   // controla os outros filtros
   const handleOtherFilters = (e) => {
     setOtherFilters({ ...otherFilters, [e.target.name]: e.target.value });
+    // setColumnOptions(...otherFilters.column);
   };
 
   // controla o botão filtrar
@@ -69,7 +74,7 @@ function TableProvider({ children }) {
     });
     setFilterPlanets(filter);
     setSelectedFilters([...selectedFilters, otherFilters]);
-    // handleColumnFilter();
+    handleColumnFilter();
   };
 
   return (
@@ -81,6 +86,8 @@ function TableProvider({ children }) {
         filterPlanets,
         otherFilters,
         selectedFilters,
+        // options,
+        columnOptions,
         useFormInput,
         handleOtherFilters,
         handleFilterName,

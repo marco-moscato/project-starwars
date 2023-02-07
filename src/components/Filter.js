@@ -3,7 +3,7 @@ import { TableContext } from '../context/TableContext';
 
 function Filter() {
   const { handleSubmit, handleFilterName, handleOtherFilters,
-    otherFilters, selectedFilters } = useContext(TableContext);
+    otherFilters, selectedFilters, columnOptions } = useContext(TableContext);
 
   return (
     <div>
@@ -29,13 +29,10 @@ function Filter() {
             name="column"
             id="column"
             onChange={ (e) => handleOtherFilters(e) }
-            value={ otherFilters.column }
           >
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            { columnOptions.map((option, i) => (
+              <option key={ i } value={ option }>{ option }</option>
+            ))}
           </select>
         </label>
 
