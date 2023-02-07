@@ -11,6 +11,9 @@ function TableProvider({ children }) {
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  // const options = (['population', 'orbital_period', 'diameter', 'rotation_period',
+  //   'surface_water']);
+  // const [columnOptions, setColumnOptions] = useState(options);
   const [otherFilters, setOtherFilters] = useState({
     column: 'population',
     comparison: 'maior que',
@@ -31,6 +34,11 @@ function TableProvider({ children }) {
     },
     [],
   );
+
+  // const handleColumnFilter = () => {
+  //   const filter = options.filter((option) => option !== otherFilters.column);
+  //   setColumnOptions(filter);
+  // };
 
   // controla o filtro por nome
   const handleFilterName = (input) => {
@@ -61,6 +69,7 @@ function TableProvider({ children }) {
     });
     setFilterPlanets(filter);
     setSelectedFilters([...selectedFilters, otherFilters]);
+    // handleColumnFilter();
   };
 
   return (
