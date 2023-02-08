@@ -11,8 +11,6 @@ function TableProvider({ children }) {
   const [error, setError] = useState('');
   const [filterPlanets, setFilterPlanets] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  // const options = (['population', 'orbital_period', 'diameter', 'rotation_period',
-  //   'surface_water']);
   const [columnOptions, setColumnOptions] = useState([
     'population', 'orbital_period',
     'diameter', 'rotation_period',
@@ -42,6 +40,29 @@ function TableProvider({ children }) {
   const handleColumnFilter = () => {
     const filter = columnOptions.filter((option) => option !== otherFilters.column);
     setColumnOptions(filter);
+    setOtherFilters({ column: filter[0], comparison: 'maior que', value: 0 });
+  };
+
+  // controla os filtros deletados
+  const handleDeleteFilter = (e, delfilter) => {
+    e.preventDefault();
+    const filter = selectedFilters.filter((selFilter) => selFilter !== delfilter);
+    console.log(filter);
+    setSelectedFilters(filter);
+    setColumnOptions([...columnOptions, delfilter.column]);
+    const table = filterPlanets.filter((planet) => {
+      if (selectedFilters.comparison === 'maior que') {
+        return Number(planet[otherFilters.column]) > otherFilters.value;
+      }
+      if (selectedFilters.comparison === 'menor que') {
+        return Number(planet[otherFilters.column]) < otherFilters.value;
+      }
+      if (selectedFilters.comparison === 'igual a') {
+        return planet[otherFilters.column] === otherFilters.value;
+      }
+      return table;
+    });
+    setFilterPlanets([table]);
   };
 
   // controla o filtro por nome
@@ -51,8 +72,8 @@ function TableProvider({ children }) {
   };
 
   // controla os outros filtros
-  const handleOtherFilters = (e) => {
-    setOtherFilters({ ...otherFilters, [e.target.name]: e.target.value });
+  const handleOtherFilters = ({ target }) => {
+    setOtherFilters({ ...otherFilters, [target.name]: target.value });
     // setColumnOptions(...otherFilters.column);
   };
 
@@ -86,12 +107,12 @@ function TableProvider({ children }) {
         filterPlanets,
         otherFilters,
         selectedFilters,
-        // options,
         columnOptions,
         useFormInput,
         handleOtherFilters,
         handleFilterName,
         handleSubmit,
+        handleDeleteFilter,
       } }
     >
       <div>{ children }</div>
