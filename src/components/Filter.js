@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleSubmitButton, handleFilterByName, handleOtherFilters,
-    otherFilters, selectedFilters, columnOptions,
+  const { handleSubmitButton, handleFilterByName, handleNumericFilters,
+    numericFilters, selectedFilters, columnOptions,
     handleDeleteFilterButton } = useContext(TableContext);
 
   return (
@@ -18,7 +18,7 @@ function Filter() {
             type="text"
             name="name-filter"
             id="name-filter"
-            onChange={ (e) => handleFilterByName(e.target.value) }
+            onChange={ (e) => handleFilterByName(e) }
 
           />
         </label>
@@ -29,8 +29,8 @@ function Filter() {
             data-testid="column-filter"
             name="column"
             id="column"
-            onChange={ (e) => handleOtherFilters(e) }
-            value={ otherFilters.column }
+            onChange={ (e) => handleNumericFilters(e) }
+            value={ numericFilters.column }
           >
             { columnOptions.map((option, i) => (
               <option key={ i } value={ option }>{ option }</option>
@@ -44,8 +44,8 @@ function Filter() {
             data-testid="comparison-filter"
             name="comparison"
             id="comparison"
-            onChange={ (e) => handleOtherFilters(e) }
-            value={ otherFilters.comparison }
+            onChange={ (e) => handleNumericFilters(e) }
+            value={ numericFilters.comparison }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -61,7 +61,7 @@ function Filter() {
             name="value"
             id="value"
             onChange={ (e) => handleOtherFilters(e) }
-            value={ otherFilters.value }
+            value={ numericFilters.value }
           />
         </label>
 

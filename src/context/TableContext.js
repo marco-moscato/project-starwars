@@ -6,16 +6,15 @@ import useFormInput from '../hooks/useFormInput';
 export const TableContext = createContext();
 
 function TableProvider({ children }) {
-  const [loading, setLoading] = useState(false);
-  const [planets, setPlanets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [table, setTable] = useState([]);
   const [error, setError] = useState('');
-  const [filterPlanets, setFilterPlanets] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [columnOptions, setColumnOptions] = useState([
     'population', 'orbital_period',
     'diameter', 'rotation_period',
     'surface_water']);
-  const [otherFilters, setOtherFilters] = useState({
+  const [numericFilters, setNumericFilters] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
@@ -23,48 +22,47 @@ function TableProvider({ children }) {
 
   useEffect(
     () => {
-      setLoading(true);
       fetchPlanetsAPI()
         .then((response) => {
-          const removeKey = response.filter((ele) => delete ele.residents);
-          setPlanets(removeKey);
-          // setFilterPlanets(filter);
-        });
-      // .catch(() => setError('Tivemos um problema com a requisição'));
+          const removeKeyFromAPI = response.filter((ele) => delete ele.residents);
+          setTable(removeKeyFromAPI);
+        })
+        .catch(() => setError('Tivemos um problema com a requisição'));
       setLoading(false);
     },
     [],
   );
 
   // Handle form field by planet name
-  const handleFilterByName = (input) => {
-    const filterByInputName = planets.filter((planet) => planet.name.includes(input));
-    return filterByInputName;
+  const handleFilterByName = ({ target }) => {
+    const filterByInputName = table
+      .filter((planet) => planet.name.includes(target.value));
+    setTable(filterByInputName);
   };
 
   // Handle the other numeric filters
-  const handleOtherFilters = ({ target }) => {
-    setOtherFilters({ ...otherFilters, [target.name]: target.value });
+  const handleNumericFilters = ({ target }) => {
+    setNumericFilters({ ...numericFilters, [target.name]: target.value });
   };
 
   // Check which type of comparison filter was selected
   const checkWhichComparisonFilter = (planet) => {
-    if (otherFilters.comparison === 'maior que') {
-      return Number(planet[otherFilters.column]) > otherFilters.value;
+    if (numericFilters.comparison === 'maior que') {
+      return Number(planet[numericFilters.column]) > numericFilters.value;
     }
-    if (otherFilters.comparison === 'menor que') {
-      return Number(planet[otherFilters.column]) < otherFilters.value;
+    if (numericFilters.comparison === 'menor que') {
+      return Number(planet[numericFilters.column]) < numericFilters.value;
     }
-    if (otherFilters.comparison === 'igual a') {
-      return planet[otherFilters.column] === otherFilters.value;
+    if (numericFilters.comparison === 'igual a') {
+      return planet[numericFilters.column] === numericFilters.value;
     }
   };
 
   // Control options available at column filter
   const handleColumnFilter = () => {
-    const filter = columnOptions.filter((option) => option !== otherFilters.column);
+    const filter = columnOptions.filter((option) => option !== numericFilters.column);
     setColumnOptions(filter);
-    setOtherFilters({ column: filter[0], comparison: 'maior que', value: 0 });
+    setNumericFilters({ column: filter[0], comparison: 'maior que', value: 0 });
   };
 
   // controla o botão filtrar
@@ -73,7 +71,7 @@ function TableProvider({ children }) {
     const filter = filterPlanets
       .filter((planet) => checkWhichComparisonFilter(planet));
     setFilterPlanets(filter);
-    setSelectedFilters([...selectedFilters, otherFilters]);
+    setSelectedFilters([...selectedFilters, numericFilters]);
     handleColumnFilter();
   };
 
@@ -111,14 +109,13 @@ function TableProvider({ children }) {
     <TableContext.Provider
       value={ {
         loading,
-        planets,
+        table,
         error,
-        filterPlanets,
-        otherFilters,
+        numericFilters,
         selectedFilters,
         columnOptions,
         useFormInput,
-        handleOtherFilters,
+        handleNumericFilters,
         handleFilterByName,
         handleSubmitButton,
         handleDeleteFilterButton,
