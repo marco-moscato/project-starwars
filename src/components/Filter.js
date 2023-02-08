@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleSubmit, handleFilterName, handleOtherFilters,
+  const { handleSubmitButton, handleFilterByName, handleOtherFilters,
     otherFilters, selectedFilters, columnOptions,
-    handleDeleteFilter } = useContext(TableContext);
+    handleDeleteFilterButton } = useContext(TableContext);
 
   return (
     <div>
@@ -18,7 +18,7 @@ function Filter() {
             type="text"
             name="name-filter"
             id="name-filter"
-            onChange={ (e) => handleFilterName(e.target.value) }
+            onChange={ (e) => handleFilterByName(e.target.value) }
 
           />
         </label>
@@ -69,7 +69,7 @@ function Filter() {
           type="submit"
           name="button-filter"
           id="button-filter"
-          onClick={ (e) => handleSubmit(e) }
+          onClick={ (e) => handleSubmitButton(e) }
           data-testid="button-filter"
         >
           Filtrar
@@ -83,7 +83,7 @@ function Filter() {
             <button
               type="button"
               name="delete-filter"
-              onClick={ (e) => handleDeleteFilter(e, filter) }
+              onClick={ (e) => handleDeleteFilterButton(e, filter) }
             >
               Excluir filtro
             </button>
