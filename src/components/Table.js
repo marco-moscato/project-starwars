@@ -7,6 +7,7 @@ export default function Table() {
 
   return (
     <div>
+      { loading && <h3>CARREGANDO...</h3> }
       <table className="planetsTable">
         <thead>
           <tr>
@@ -26,7 +27,6 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          { loading && <h3>CARREGANDO...</h3> }
           { table.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>

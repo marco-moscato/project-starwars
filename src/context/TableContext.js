@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
-import useFormInput from '../hooks/useFormInput';
 
 export const TableContext = createContext();
 
@@ -10,6 +9,7 @@ function TableProvider({ children }) {
   const [table, setTable] = useState([]);
   const [error, setError] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
   const [columnOptions, setColumnOptions] = useState([
     'population', 'orbital_period',
     'diameter', 'rotation_period',
@@ -33,16 +33,17 @@ function TableProvider({ children }) {
     [],
   );
 
-  // Handle form field by planet name
-  const handleFilterByName = ({ target }) => {
-    const filterByInputName = table
-      .filter((planet) => planet.name.includes(target.value));
-    setTable(filterByInputName);
-  };
-
   // Handle the other numeric filters
   const handleNumericFilters = ({ target }) => {
     setNumericFilters({ ...numericFilters, [target.name]: target.value });
+  };
+
+  // Handle form field by planet name
+  const handleFilterByName = ({ target }) => {
+    setNameFilter(target.value);
+    const filterByInputName = table
+      .filter((planet) => planet.name.includes(nameFilter));
+    setTable(filterByInputName);
   };
 
   // Check which type of comparison filter was selected
@@ -68,9 +69,9 @@ function TableProvider({ children }) {
   // controla o botão filtrar
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    const filter = filterPlanets
+    const filter = table
       .filter((planet) => checkWhichComparisonFilter(planet));
-    setFilterPlanets(filter);
+    setTable(filter);
     setSelectedFilters([...selectedFilters, numericFilters]);
     handleColumnFilter();
   };
@@ -114,7 +115,6 @@ function TableProvider({ children }) {
         numericFilters,
         selectedFilters,
         columnOptions,
-        useFormInput,
         handleNumericFilters,
         handleFilterByName,
         handleSubmitButton,

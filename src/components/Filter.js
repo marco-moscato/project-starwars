@@ -11,13 +11,13 @@ function Filter() {
 
       <form action="" id="filterForm">
 
-        <label htmlFor="name-filter">
+        <label htmlFor="name">
           Filter by name
           <input
             data-testid="name-filter"
             type="text"
-            name="name-filter"
-            id="name-filter"
+            name="nameFilter"
+            id="name"
             onChange={ (e) => handleFilterByName(e) }
 
           />
@@ -60,7 +60,7 @@ function Filter() {
             type="number"
             name="value"
             id="value"
-            onChange={ (e) => handleOtherFilters(e) }
+            onChange={ (e) => handleNumericFilters(e) }
             value={ numericFilters.value }
           />
         </label>
