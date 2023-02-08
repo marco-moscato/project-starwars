@@ -3,7 +3,8 @@ import { TableContext } from '../context/TableContext';
 
 function Filter() {
   const { handleSubmit, handleFilterName, handleOtherFilters,
-    otherFilters, selectedFilters, columnOptions } = useContext(TableContext);
+    otherFilters, selectedFilters, columnOptions,
+    handleDeleteFilter } = useContext(TableContext);
 
   return (
     <div>
@@ -29,6 +30,7 @@ function Filter() {
             name="column"
             id="column"
             onChange={ (e) => handleOtherFilters(e) }
+            value={ otherFilters.column }
           >
             { columnOptions.map((option, i) => (
               <option key={ i } value={ option }>{ option }</option>
@@ -74,9 +76,18 @@ function Filter() {
         </button>
       </form>
 
-      { selectedFilters.map((filter) => (
-        <div key={ filter.column }>
-          <p>{ `${filter.column} ${filter.comparison} ${filter.value}` }</p>
+      { selectedFilters.map((filter, i) => (
+        <div key={ i }>
+          <p data-testid="filter">
+            { `${filter.column} ${filter.comparison} ${filter.value}` }
+            <button
+              type="button"
+              name="delete-filter"
+              onClick={ (e) => handleDeleteFilter(e, filter) }
+            >
+              Excluir filtro
+            </button>
+          </p>
 
         </div>
       ))}
