@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { TableContext } from '../context/TableContext';
 
 function Filter() {
-  const { handleSubmitButton, handleFilterByName, handleNumericFilters,
-    numericFilters, selectedFilters, columnOptions,
+  const { handleSubmitButton, handleFiltersChange,
+    filtersChange, selectedFilters, columnOptions,
     handleDeleteFilterButton } = useContext(TableContext);
 
   return (
@@ -18,7 +18,8 @@ function Filter() {
             type="text"
             name="nameFilter"
             id="name"
-            onChange={ (e) => handleFilterByName(e) }
+            onChange={ (e) => handleFiltersChange(e) }
+            value={ filtersChange.nameFilter }
 
           />
         </label>
@@ -29,8 +30,8 @@ function Filter() {
             data-testid="column-filter"
             name="column"
             id="column"
-            onChange={ (e) => handleNumericFilters(e) }
-            value={ numericFilters.column }
+            onChange={ (e) => handleFiltersChange(e) }
+            value={ filtersChange.column }
           >
             { columnOptions.map((option, i) => (
               <option key={ i } value={ option }>{ option }</option>
@@ -44,8 +45,8 @@ function Filter() {
             data-testid="comparison-filter"
             name="comparison"
             id="comparison"
-            onChange={ (e) => handleNumericFilters(e) }
-            value={ numericFilters.comparison }
+            onChange={ (e) => handleFiltersChange(e) }
+            value={ filtersChange.comparison }
           >
             <option value="maior que">maior que</option>
             <option value="menor que">menor que</option>
@@ -60,8 +61,8 @@ function Filter() {
             type="number"
             name="value"
             id="value"
-            onChange={ (e) => handleNumericFilters(e) }
-            value={ numericFilters.value }
+            onChange={ (e) => handleFiltersChange(e) }
+            value={ filtersChange.value }
           />
         </label>
 
