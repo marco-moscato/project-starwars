@@ -71,30 +71,23 @@ function TableProvider({ children }) {
       value: 0 });
   };
 
-  // controla o botão filtrar
-  // const handleSubmitButton = (e) => {
-  //   e.preventDefault();
-  //   const filter = table
-  //     .filter((planet) => checkWhichComparisonFilter(planet));
-  //   setTable(filter);
-  //   setSelectedFilters([...selectedFilters, filtersChange]);
-  //   handleColumnFilter();
-  // };
-
-  // controla o botão filtrar
-  const handleSubmitButton = () => {
-    // e.preventDefault();
-    const filter = table
-      .filter((planet) => checkWhichComparisonFilter(planet));
-    setSelectedFilters([...selectedFilters, filtersChange]);
-    handleColumnFilter();
-    console.log(filter);
+  const filterPlanets = () => {
+    const filter = table.filter((planet) => checkWhichComparisonFilter(planet));
+    setFilteredTable(filter);
     return filter;
   };
 
+  // controla o botão filtrar
+  const handleSubmitButton = (e) => {
+    e.preventDefault();
+    filterPlanets();
+    setSelectedFilters([...selectedFilters, filtersChange]);
+    handleColumnFilter();
+  };
+
   useEffect(() => {
-    setFilteredTable(handleSubmitButton);
-  }, []);
+    setFilteredTable(filterPlanets());
+  }, [selectedFilters]);
 
   // const checkWhichComparisonFilter = (planet) => {
   //   if (selectedFilters.comparison === 'maior que') {
