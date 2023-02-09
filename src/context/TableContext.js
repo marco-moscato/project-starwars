@@ -72,15 +72,29 @@ function TableProvider({ children }) {
   };
 
   // controla o botão filtrar
+  // const handleSubmitButton = (e) => {
+  //   e.preventDefault();
+  //   const filter = table
+  //     .filter((planet) => checkWhichComparisonFilter(planet));
+  //   setTable(filter);
+  //   setSelectedFilters([...selectedFilters, filtersChange]);
+  //   handleColumnFilter();
+  // };
+
+  // controla o botão filtrar
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    const filter = table
-      .filter((planet) => checkWhichComparisonFilter(planet));
-    // setTable(filter);
-    setFilteredTable(filter);
     setSelectedFilters([...selectedFilters, filtersChange]);
     handleColumnFilter();
   };
+
+  useEffect(() => {
+    const filter = table
+      .filter((planet) => checkWhichComparisonFilter(planet));
+    setFilteredTable(filter);
+    console.log(filter);
+    console.log(filteredTable);
+  }, [table]);
 
   // const checkWhichComparisonFilter = (planet) => {
   //   if (selectedFilters.comparison === 'maior que') {
