@@ -82,19 +82,19 @@ function TableProvider({ children }) {
   // };
 
   // controla o botão filtrar
-  const handleSubmitButton = (e) => {
-    e.preventDefault();
+  const handleSubmitButton = () => {
+    // e.preventDefault();
+    const filter = table
+      .filter((planet) => checkWhichComparisonFilter(planet));
     setSelectedFilters([...selectedFilters, filtersChange]);
     handleColumnFilter();
+    console.log(filter);
+    return filter;
   };
 
   useEffect(() => {
-    const filter = table
-      .filter((planet) => checkWhichComparisonFilter(planet));
-    setFilteredTable(filter);
-    console.log(filter);
-    console.log(filteredTable);
-  }, [table]);
+    setFilteredTable(handleSubmitButton);
+  }, []);
 
   // const checkWhichComparisonFilter = (planet) => {
   //   if (selectedFilters.comparison === 'maior que') {
