@@ -76,7 +76,8 @@ function TableProvider({ children }) {
     e.preventDefault();
     const filter = table
       .filter((planet) => checkWhichComparisonFilter(planet));
-    setTable(filter);
+    // setTable(filter);
+    setFilteredTable(filter);
     setSelectedFilters([...selectedFilters, filtersChange]);
     handleColumnFilter();
   };
