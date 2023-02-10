@@ -15,7 +15,6 @@ function TableProvider({ children }) {
     'diameter', 'rotation_period',
     'surface_water']);
   const [filtersChange, setFiltersChange] = useState({
-    nameFilter: '',
     column: 'population',
     comparison: 'maior que',
     value: 0,
@@ -35,14 +34,11 @@ function TableProvider({ children }) {
     [],
   );
 
-  useEffect(
-    () => {
-      const filterByName = table
-        .filter((planet) => planet.name.includes(filtersChange.nameFilter));
-      setFilteredTable(filterByName);
-    },
-    [filtersChange],
-  );
+  const filterByName = ({ target }) => {
+    const filter = table
+      .filter((planet) => planet.name.includes(target.value));
+    setFilteredTable(filter);
+  };
 
   const handleFiltersChange = ({ target }) => {
     setFiltersChange({ ...filtersChange, [target.name]: target.value });
@@ -71,15 +67,23 @@ function TableProvider({ children }) {
       value: 0 });
   };
 
+  const filterPlanets = () => {
+    const filter = filteredTable.filter((planet) => checkWhichComparisonFilter(planet));
+    setFilteredTable(filter);
+  };
+
+  console.log(filteredTable);
   // controla o botão filtrar
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    const filter = table
-      .filter((planet) => checkWhichComparisonFilter(planet));
-    setTable(filter);
+    filterPlanets();
     setSelectedFilters([...selectedFilters, filtersChange]);
     handleColumnFilter();
   };
+
+  // useEffect(() => {
+  //   setFilteredTable(filterPlanets());
+  // }, [selectedFilters]);
 
   // const checkWhichComparisonFilter = (planet) => {
   //   if (selectedFilters.comparison === 'maior que') {
@@ -121,6 +125,7 @@ function TableProvider({ children }) {
         selectedFilters,
         columnOptions,
         filteredTable,
+        filterByName,
         handleFiltersChange,
         handleSubmitButton,
         handleDeleteFilterButton,
