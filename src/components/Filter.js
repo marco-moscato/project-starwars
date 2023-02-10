@@ -19,7 +19,6 @@ function Filter() {
             name="nameFilter"
             id="name"
             onChange={ (e) => filterByName(e) }
-            // value={ e }
 
           />
         </label>

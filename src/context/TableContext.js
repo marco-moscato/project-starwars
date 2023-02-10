@@ -72,7 +72,6 @@ function TableProvider({ children }) {
     setFilteredTable(filter);
   };
 
-  console.log(filteredTable);
   // controla o botão filtrar
   const handleSubmitButton = (e) => {
     e.preventDefault();
@@ -81,38 +80,42 @@ function TableProvider({ children }) {
     handleColumnFilter();
   };
 
-  // useEffect(() => {
-  //   setFilteredTable(filterPlanets());
-  // }, [selectedFilters]);
+  const checkWhichComparisonFilter2 = (planet, filter) => {
+    if (filter.comparison === 'maior que') {
+      return Number(planet[filter.column]) > filter.value;
+    }
+    if (filter.comparison === 'menor que') {
+      return Number(planet[filter.column]) < filter.value;
+    }
+    if (filter.comparison === 'igual a') {
+      return planet[filter.column] === filter.value;
+    }
+  };
 
-  // const checkWhichComparisonFilter = (planet) => {
-  //   if (selectedFilters.comparison === 'maior que') {
-  //     return Number(planet[selectedFilters.column]) > selectedFilters.value;
-  //   }
-  //   if (selectedFilters.comparison === 'menor que') {
-  //     return Number(planet[selectedFilters.column]) < selectedFilters.value;
-  //   }
-  //   if (selectedFilters.comparison === 'igual a') {
-  //     return planet[selectedFilters.column] === selectedFilters.value;
-  //   }
-  // };
-
-  // const filterPlanetsBySelectedFilters = () => {
-  //   planets.filter((planet) => checkWhichComparisonFilter(planet));
-  // };
+  const filterPlanetsBySelectedFilters = (delFilter) => {
+    const join = [...filteredTable];
+    const result = table
+      .filter((planet) => !checkWhichComparisonFilter2(planet, delFilter));
+    const conc = join.concat(result);
+    setFilteredTable(conc);
+  };
 
   // Delete selected filter from screen and restore it to column option
   const deleteSelectedFilter = (delFilter) => {
     const filter = selectedFilters.filter((selFilter) => selFilter !== delFilter);
     setSelectedFilters(filter);
     setColumnOptions([...columnOptions, delFilter.column]);
+    filterPlanetsBySelectedFilters();
+    // setFilteredTable(filterPlanetsBySelectedFilters(filter));
+    // console.log(filterPlanetsBySelectedFilters(filter));
   };
 
   // controla os filtros deletados
   const handleDeleteFilterButton = (e, delFilter) => {
     e.preventDefault();
     deleteSelectedFilter(delFilter);
-    // filterPlanetsBySelectedFilters()
+    // filterPlanetsBySelectedFilters();
+    // mapSelectedFilters();
   };
 
   return (
