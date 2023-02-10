@@ -4,7 +4,7 @@ import { TableContext } from '../context/TableContext';
 function Filter() {
   const { handleSubmitButton, handleFiltersChange,
     filtersChange, selectedFilters, columnOptions,
-    handleDeleteFilterButton } = useContext(TableContext);
+    handleDeleteFilterButton, filterByName } = useContext(TableContext);
 
   return (
     <div>
@@ -18,8 +18,8 @@ function Filter() {
             type="text"
             name="nameFilter"
             id="name"
-            onChange={ (e) => handleFiltersChange(e) }
-            value={ filtersChange.nameFilter }
+            onChange={ (e) => filterByName(e) }
+            // value={ e }
 
           />
         </label>

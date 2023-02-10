@@ -35,14 +35,20 @@ function TableProvider({ children }) {
     [],
   );
 
-  useEffect(
-    () => {
-      const filterByName = table
-        .filter((planet) => planet.name.includes(filtersChange.nameFilter));
-      setFilteredTable(filterByName);
-    },
-    [filtersChange.nameFilter],
-  );
+  // useEffect(
+  //   () => {
+  //     const filterByName = table
+  //       .filter((planet) => planet.name.includes(filtersChange.nameFilter));
+  //     setFilteredTable(filterByName);
+  //   },
+  //   [filtersChange.nameFilter],
+  // );
+
+  const filterByName = ({ target }) => {
+    const filter = table
+      .filter((planet) => planet.name.includes(target.value));
+    setFilteredTable(filter);
+  };
 
   const handleFiltersChange = ({ target }) => {
     setFiltersChange({ ...filtersChange, [target.name]: target.value });
@@ -132,6 +138,7 @@ function TableProvider({ children }) {
         selectedFilters,
         columnOptions,
         filteredTable,
+        filterByName,
         handleFiltersChange,
         handleSubmitButton,
         handleDeleteFilterButton,
