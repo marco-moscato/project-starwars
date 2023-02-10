@@ -41,7 +41,7 @@ function TableProvider({ children }) {
         .filter((planet) => planet.name.includes(filtersChange.nameFilter));
       setFilteredTable(filterByName);
     },
-    [filtersChange],
+    [filtersChange.nameFilter],
   );
 
   const handleFiltersChange = ({ target }) => {
@@ -74,8 +74,11 @@ function TableProvider({ children }) {
   const filterPlanets = () => {
     const filter = table.filter((planet) => checkWhichComparisonFilter(planet));
     setFilteredTable(filter);
-    return filter;
+    console.log(filter);
+    // return filter;
   };
+
+  console.log(filteredTable);
 
   // controla o botão filtrar
   const handleSubmitButton = (e) => {
@@ -85,9 +88,9 @@ function TableProvider({ children }) {
     handleColumnFilter();
   };
 
-  useEffect(() => {
-    setFilteredTable(filterPlanets());
-  }, [selectedFilters]);
+  // useEffect(() => {
+  //   setFilteredTable(filterPlanets());
+  // }, [selectedFilters]);
 
   // const checkWhichComparisonFilter = (planet) => {
   //   if (selectedFilters.comparison === 'maior que') {
