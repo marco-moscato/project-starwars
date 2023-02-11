@@ -19,6 +19,9 @@ function TableProvider({ children }) {
     comparison: 'maior que',
     value: 0,
   });
+  const [sortColumns, setSortColumns] = useState(
+    { order: { column: 'population', sort: 'ASC' } },
+  );
 
   useEffect(
     () => {
@@ -101,6 +104,76 @@ function TableProvider({ children }) {
     deleteSelectedFilter(delFilter);
   };
 
+  const onChangeSort = ({ target }) => {
+    setSortColumns({ order: { ...sortColumns.order, [target.name]: target.value } });
+  };
+
+  const sortNamesA = (a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA < nameB) {
+      const magic = -1;
+      return magic;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const sortNamesB = (b, a) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+    if (nameA > nameB) {
+      const magic = -1;
+      return magic;
+    }
+    if (nameA < nameB) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const handleByPopulation = () => {
+    if (sortColumns.order.column === 'population' && sortColumns.order.sort === 'ASC') {
+      const newArray = [...table];
+      const result = newArray.sort((a, b) => sortNamesA(a, b));
+      setSortColumns(result);
+    }
+
+    if (sortColumns.order.column === 'population'
+  && sortColumns.order.sort === 'DESC') {
+      const newArray = [...table];
+      const result = newArray.sort((b, a) => sortNamesB(a, b));
+      setSortColumns(result);
+    }
+  };
+
+  const handleByOtherThanPopulation = () => {
+    // console.log(param);
+    const coluna = sortColumns.order.column;
+    if (sortColumns.order.sort === 'ASC') {
+      const newArray = [...table];
+      const result = newArray
+        .sort((a, b) => a[coluna] - b[coluna]);
+      setFilteredTable(result);
+    }
+    if (sortColumns.order.sort === 'DESC') {
+      const newArray = [...table];
+      const result = newArray
+        .sort((a, b) => b[coluna] - a[coluna]);
+      setFilteredTable(result);
+    }
+  };
+
+  const handleSortButton = (e) => {
+    e.preventDefault();
+    // if (sortColumns.order.column === 'population') {
+    //   handleByPopulation();
+    // } else {
+    handleByOtherThanPopulation();
+  };
+
   return (
     <TableContext.Provider
       value={ {
@@ -111,6 +184,9 @@ function TableProvider({ children }) {
         selectedFilters,
         columnOptions,
         filteredTable,
+        sortColumns,
+        handleSortButton,
+        onChangeSort,
         filterByName,
         handleFiltersChange,
         handleSubmitButton,
