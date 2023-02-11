@@ -4,7 +4,8 @@ import { TableContext } from '../context/TableContext';
 function Filter() {
   const { handleSubmitButton, handleFiltersChange,
     filtersChange, selectedFilters, columnOptions,
-    handleDeleteFilterButton, filterByName, removeAllFilters } = useContext(TableContext);
+    handleDeleteFilterButton, filterByName, removeAllFilters, handleSortButton,
+    sortColumns, onChangeSort } = useContext(TableContext);
 
   return (
     <div>
@@ -100,6 +101,53 @@ function Filter() {
 
         </div>
       ))}
+
+      <label htmlFor="sort">
+        Ordenar por
+        <select
+          data-testid="column-sort"
+          name="column"
+          id="column"
+          onChange={ (e) => onChangeSort(e) }
+        >
+          <option value="population">population</option>
+          <option value="orbital_period">orbital_period</option>
+          <option value="diameter">diameter</option>
+          <option value="rotation_period">rotation_period</option>
+          <option value="surface_water">surface_water</option>
+        </select>
+      </label>
+
+      <label htmlFor="radio">
+
+        <input
+          type="radio"
+          name="sort"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          onChange={ (e) => onChangeSort(e) }
+        />
+        ASC
+
+        <input
+          type="radio"
+          name="sort"
+          data-testid="column-sort-input-desc"
+          value="DESC"
+          onChange={ (e) => onChangeSort(e) }
+        />
+        DESC
+
+        <button
+          data-testid="column-sort-button"
+          type="button"
+          name="sort-button"
+          onClick={ (e) => handleSortButton(e) }
+        >
+          Ordenar
+        </button>
+
+      </label>
 
     </div>
   );
