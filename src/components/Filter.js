@@ -4,7 +4,7 @@ import { TableContext } from '../context/TableContext';
 function Filter() {
   const { handleSubmitButton, handleFiltersChange,
     filtersChange, selectedFilters, columnOptions,
-    handleDeleteFilterButton, filterByName } = useContext(TableContext);
+    handleDeleteFilterButton, filterByName, removeAllFilters } = useContext(TableContext);
 
   return (
     <div>
@@ -73,6 +73,15 @@ function Filter() {
           data-testid="button-filter"
         >
           Filtrar
+        </button>
+
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          name="button-remove-filters"
+          onClick={ () => removeAllFilters() }
+        >
+          Remover Filtros
         </button>
       </form>
 

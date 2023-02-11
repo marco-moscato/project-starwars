@@ -92,12 +92,12 @@ function TableProvider({ children }) {
     }
   };
 
-  const filterPlanetsBySelectedFilters = (delFilter) => {
-    const join = [...filteredTable];
-    const result = table
-      .filter((planet) => !checkWhichComparisonFilter2(planet, delFilter));
-    const conc = join.concat(result);
-    setFilteredTable(conc);
+  const removeAllFilters = () => {
+    setSelectedFilters([]);
+  };
+
+  const filterPlanetsBySelectedFilters = (filters) => {
+    const mapFilters = filters.map((filter) => table.filter((planet) => planet.column checkWhichComparisonFilter2(filter));
   };
 
   // Delete selected filter from screen and restore it to column option
@@ -105,9 +105,7 @@ function TableProvider({ children }) {
     const filter = selectedFilters.filter((selFilter) => selFilter !== delFilter);
     setSelectedFilters(filter);
     setColumnOptions([...columnOptions, delFilter.column]);
-    filterPlanetsBySelectedFilters();
-    // setFilteredTable(filterPlanetsBySelectedFilters(filter));
-    // console.log(filterPlanetsBySelectedFilters(filter));
+    filterPlanetsBySelectedFilters(filter);
   };
 
   // controla os filtros deletados
@@ -132,6 +130,7 @@ function TableProvider({ children }) {
         handleFiltersChange,
         handleSubmitButton,
         handleDeleteFilterButton,
+        removeAllFilters,
       } }
     >
       <div>{ children }</div>
