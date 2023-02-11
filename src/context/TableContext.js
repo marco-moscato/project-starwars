@@ -108,56 +108,56 @@ function TableProvider({ children }) {
     setSortColumns({ order: { ...sortColumns.order, [target.name]: target.value } });
   };
 
-  const sortNamesA = (a, b) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    if (nameA < nameB) {
-      const magic = -1;
-      return magic;
-    }
-    if (nameA > nameB) {
-      return 1;
-    }
-    return 0;
-  };
+  // const sortNamesA = (a, b) => {
+  //   const nameA = a.name.toUpperCase();
+  //   const nameB = b.name.toUpperCase();
+  //   if (nameA < nameB) {
+  //     const magic = -1;
+  //     return magic;
+  //   }
+  //   if (nameA > nameB) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // };
 
-  const sortNamesB = (b, a) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    if (nameA > nameB) {
-      const magic = -1;
-      return magic;
-    }
-    if (nameA < nameB) {
-      return 1;
-    }
-    return 0;
-  };
+  // const sortNamesB = (b, a) => {
+  //   const nameA = a.name.toUpperCase();
+  //   const nameB = b.name.toUpperCase();
+  //   if (nameA > nameB) {
+  //     const magic = -1;
+  //     return magic;
+  //   }
+  //   if (nameA < nameB) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // };
 
-  const handleByPopulation = () => {
-    if (sortColumns.order.column === 'population' && sortColumns.order.sort === 'ASC') {
-      const newArray = [...table];
-      const result = newArray.sort((a, b) => sortNamesA(a, b));
-      setSortColumns(result);
-    }
+  // const handleByPopulation = () => {
+  //   if (sortColumns.order.column === 'population' && sortColumns.order.sort === 'ASC') {
+  //     const newArray = [...table];
+  //     const result = newArray.sort((a, b) => sortNamesA(a, b));
+  //     setSortColumns(result);
+  //   }
 
-    if (sortColumns.order.column === 'population'
-  && sortColumns.order.sort === 'DESC') {
-      const newArray = [...table];
-      const result = newArray.sort((b, a) => sortNamesB(a, b));
-      setSortColumns(result);
-    }
-  };
+  //   if (sortColumns.order.column === 'population'
+  // && sortColumns.order.sort === 'DESC') {
+  //     const newArray = [...table];
+  //     const result = newArray.sort((b, a) => sortNamesB(a, b));
+  //     setSortColumns(result);
+  //   }
+  // };
 
   const filterUnknown = (coluna) => {
     const filter = table.filter((ele) => ele[coluna] !== 'unknown');
     return filter;
   };
 
-  const filterRest = () => {
-    const filter = table.filter((ele) => ele[sortColumns.order.column] === 'unknown');
-    return filter;
-  };
+  // const filterRest = () => {
+  //   const filter = table.filter((ele) => ele[sortColumns.order.column] === 'unknown');
+  //   return filter;
+  // };
 
   const handleByOtherThanPopulation = () => {
     const coluna = sortColumns.order.column;

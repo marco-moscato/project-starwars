@@ -5,7 +5,7 @@ function Filter() {
   const { handleSubmitButton, handleFiltersChange,
     filtersChange, selectedFilters, columnOptions,
     handleDeleteFilterButton, filterByName, removeAllFilters, handleSortButton,
-    sortColumns, onChangeSort } = useContext(TableContext);
+    onChangeSort } = useContext(TableContext);
 
   return (
     <div>
