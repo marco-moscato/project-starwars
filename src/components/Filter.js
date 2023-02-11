@@ -79,7 +79,7 @@ function Filter() {
           type="button"
           data-testid="button-remove-filters"
           name="button-remove-filters"
-          onClick={ () => removeAllFilters() }
+          onClick={ (e) => removeAllFilters(e) }
         >
           Remover Filtros
         </button>

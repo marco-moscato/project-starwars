@@ -44,19 +44,6 @@ function TableProvider({ children }) {
     setFiltersChange({ ...filtersChange, [target.name]: target.value });
   };
 
-  // Check which type of comparison filter was selected
-  const checkWhichComparisonFilter = (planet) => {
-    if (filtersChange.comparison === 'maior que') {
-      return Number(planet[filtersChange.column]) > filtersChange.value;
-    }
-    if (filtersChange.comparison === 'menor que') {
-      return Number(planet[filtersChange.column]) < filtersChange.value;
-    }
-    if (filtersChange.comparison === 'igual a') {
-      return planet[filtersChange.column] === filtersChange.value;
-    }
-  };
-
   // Control options available at column filter
   const handleColumnFilter = () => {
     const filter = columnOptions.filter((option) => option !== filtersChange.column);
@@ -65,19 +52,6 @@ function TableProvider({ children }) {
       column: filter[0],
       comparison: 'maior que',
       value: 0 });
-  };
-
-  const filterPlanets = () => {
-    const filter = filteredTable.filter((planet) => checkWhichComparisonFilter(planet));
-    setFilteredTable(filter);
-  };
-
-  // controla o botão filtrar
-  const handleSubmitButton = (e) => {
-    e.preventDefault();
-    filterPlanets();
-    setSelectedFilters([...selectedFilters, filtersChange]);
-    handleColumnFilter();
   };
 
   const checkWhichComparisonFilter2 = (planet, filter) => {
@@ -92,28 +66,39 @@ function TableProvider({ children }) {
     }
   };
 
-  const removeAllFilters = () => {
-    setSelectedFilters([]);
+  useEffect(() => {
+    const filterPlanets = () => {
+      const results = table
+        .filter((planet) => selectedFilters
+          .every((filter) => checkWhichComparisonFilter2(planet, filter)));
+      setFilteredTable(results);
+    };
+    filterPlanets();
+  }, [selectedFilters]);
+
+  // controla o botão filtrar
+  const handleSubmitButton = (e) => {
+    e.preventDefault();
+    setSelectedFilters([...selectedFilters, filtersChange]);
+    handleColumnFilter();
   };
 
-  const filterPlanetsBySelectedFilters = (filters) => {
-    const mapFilters = filters.map((filter) => table.filter((planet) => planet.column checkWhichComparisonFilter2(filter));
+  const removeAllFilters = (e) => {
+    e.preventDefault();
+    setSelectedFilters([]);
+    setFilteredTable(table);
   };
 
   // Delete selected filter from screen and restore it to column option
   const deleteSelectedFilter = (delFilter) => {
     const filter = selectedFilters.filter((selFilter) => selFilter !== delFilter);
     setSelectedFilters(filter);
-    setColumnOptions([...columnOptions, delFilter.column]);
-    filterPlanetsBySelectedFilters(filter);
   };
 
   // controla os filtros deletados
   const handleDeleteFilterButton = (e, delFilter) => {
     e.preventDefault();
     deleteSelectedFilter(delFilter);
-    // filterPlanetsBySelectedFilters();
-    // mapSelectedFilters();
   };
 
   return (
