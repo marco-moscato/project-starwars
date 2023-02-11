@@ -149,11 +149,20 @@ function TableProvider({ children }) {
     }
   };
 
+  const filterUnknown = (coluna) => {
+    const filter = table.filter((ele) => ele[coluna] !== 'unknown');
+    return filter;
+  };
+
+  const filterRest = () => {
+    const filter = table.filter((ele) => ele[sortColumns.order.column] === 'unknown');
+    return filter;
+  };
+
   const handleByOtherThanPopulation = () => {
-    // console.log(param);
     const coluna = sortColumns.order.column;
     if (sortColumns.order.sort === 'ASC') {
-      const newArray = [...table];
+      const newArray = filterUnknown(coluna);
       const result = newArray
         .sort((a, b) => a[coluna] - b[coluna]);
       setFilteredTable(result);
@@ -168,9 +177,6 @@ function TableProvider({ children }) {
 
   const handleSortButton = (e) => {
     e.preventDefault();
-    // if (sortColumns.order.column === 'population') {
-    //   handleByPopulation();
-    // } else {
     handleByOtherThanPopulation();
   };
 
