@@ -5,10 +5,10 @@ import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
 export const TableContext = createContext('');
 
 function TableProvider({ children }) {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [table, setTable] = useState([]);
   const [filteredTable, setFilteredTable] = useState([]);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [columnOptions, setColumnOptions] = useState([
     'population', 'orbital_period',
@@ -30,9 +30,9 @@ function TableProvider({ children }) {
           const removeKeyFromAPI = response.filter((ele) => delete ele.residents);
           setTable(removeKeyFromAPI);
           setFilteredTable(removeKeyFromAPI);
-          setLoading(false);
-        })
-        .catch(() => setError('Tivemos um problema com a requisição'));
+          // setLoading(false);
+        });
+      // .catch(() => setError('Tivemos um problema com a requisição'));
     },
     [],
   );
@@ -184,8 +184,8 @@ function TableProvider({ children }) {
     <TableContext.Provider
       value={ {
         table,
-        loading,
-        error,
+        // loading,
+        // error,
         filtersChange,
         selectedFilters,
         columnOptions,
