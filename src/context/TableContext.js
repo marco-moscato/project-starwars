@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import fetchPlanetsAPI from '../services/fetchPlanetsAPI';
 
-export const TableContext = createContext();
+export const TableContext = createContext('');
 
 function TableProvider({ children }) {
   const [loading, setLoading] = useState(true);
@@ -30,9 +30,9 @@ function TableProvider({ children }) {
           const removeKeyFromAPI = response.filter((ele) => delete ele.residents);
           setTable(removeKeyFromAPI);
           setFilteredTable(removeKeyFromAPI);
+          setLoading(false);
         })
         .catch(() => setError('Tivemos um problema com a requisição'));
-      setLoading(false);
     },
     [],
   );
@@ -183,8 +183,8 @@ function TableProvider({ children }) {
   return (
     <TableContext.Provider
       value={ {
-        loading,
         table,
+        loading,
         error,
         filtersChange,
         selectedFilters,
