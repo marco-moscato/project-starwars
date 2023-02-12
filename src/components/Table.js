@@ -3,11 +3,11 @@ import { TableContext } from '../context/TableContext';
 import './Table.css';
 
 export default function Table() {
-  const { loading, filteredTable } = useContext(TableContext);
+  const { filteredTable } = useContext(TableContext);
 
   return (
     <div>
-      { loading && <h3>CARREGANDO...</h3> }
+      {/* { loading && <h3>CARREGANDO...</h3> } */}
       <table className="planetsTable">
         <thead>
           <tr>
