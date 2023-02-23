@@ -33,7 +33,7 @@ npm run test-coverage
 ### Credits
 Folders and files described bellow were developed by me. All other files are credited to Trybe.
 
-project-trybewallet/src
+project-starwars-planets-search/src
     /components
     /context
     /services
